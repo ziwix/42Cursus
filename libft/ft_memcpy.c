@@ -6,7 +6,7 @@
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:18:18 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/01 16:18:29 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/11/04 09:35:40 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	size_t	i;
 
 	i = 0;
+	if (dest == NULL && src == NULL)
+		return (NULL);
 	while (i < n)
 	{
 		*((unsigned char *)dest + i) = *((unsigned char *)src + i);

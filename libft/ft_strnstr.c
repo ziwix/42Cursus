@@ -6,7 +6,7 @@
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:39:28 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/02 14:09:01 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/11/04 12:54:35 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_strcmp(const char *s1, const char *s2)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while ((s1[i] && s2[i]))
@@ -29,10 +29,10 @@ static int	ft_strcmp(const char *s1, const char *s2)
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
 	size_t	i;
-	size_t	j;
 
 	i = 0;
-	j = 0;
+	if ((!big || !little) && len == 0)
+		return (NULL);
 	if (little[i] == 0)
 		return ((char *)big);
 	if (ft_strlen(big) >= ft_strlen(little))
@@ -44,5 +44,5 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 			i++;
 		}
 	}
-	return (0);
+	return (NULL);
 }

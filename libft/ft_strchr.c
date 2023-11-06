@@ -6,7 +6,7 @@
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 15:09:50 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/04 09:37:09 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:30:04 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strchr(const char *s, int c)
 	int	i;
 
 	i = 0;
+	if (!ft_isascii(c))
+		return ((char *)s);
 	while (s[i])
 	{
 		if (s[i] == c)

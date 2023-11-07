@@ -6,7 +6,7 @@
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 16:11:25 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/06 09:39:25 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:29:56 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	*ft_putnbr(int nb, char *arr)
 	}
 	while (pow >= 1)
 	{
-		arr[i] = (nb / pow) + '0';
+		arr[i] = (nb / pow) + 48;
 		nb %= pow;
 		pow /= 10;
 		i++;

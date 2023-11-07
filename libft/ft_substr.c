@@ -6,7 +6,7 @@
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 11:48:46 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/04 11:42:47 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/11/07 13:36:14 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*dst;
 
 	i = 0;
-	if (!s)
-		return (NULL);
-	if (start >= ft_strlen(s))
+	if (!s || start >= ft_strlen(s))
 	{
 		dst = (char *)malloc(sizeof(char));
 		if (!dst)

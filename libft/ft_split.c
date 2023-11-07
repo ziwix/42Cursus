@@ -6,12 +6,11 @@
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 14:16:02 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/06 18:29:49 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/11/07 13:26:48 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 static int	ft_count_words(char const *s, char c)
 {
@@ -20,11 +19,11 @@ static int	ft_count_words(char const *s, char c)
 
 	i = 0;
 	count = 0;
-	if (*s == c)
+	while (*s == c)
 		s++;
 	while (s[i])
 	{
-		if ((s[i] == c && s[i - 1] != c) || (s[i + 1] == 0))
+		if ((s[i] == c && s[i - 1] != c) || (s[i + 1] == 0 && s[i] != c))
 			count++;
 		i++;
 	}
@@ -45,15 +44,26 @@ static size_t	ft_words_len(char const *s, char c)
 	return (i);
 }
 
-static int	ft_mal_strs(char const *s, char **strs, char c, int count)
+static void	ft_free_all(char **strs)
+{
+	int	i;
+
+	i = 0;
+	while (strs[i])
+	{
+		free(strs[i]);
+		i++;
+	}
+	free(strs);
+}
+
+static char	**ft_mal_strs(char const *s, char **strs, char c, int count)
 {
 	int		n;
-	int		j;
 	size_t	words_len;
 
 	n = 0;
 	words_len = 0;
-	j = 0;
 	while (n < count)
 	{
 		while (*s == c)
@@ -61,36 +71,40 @@ static int	ft_mal_strs(char const *s, char **strs, char c, int count)
 		words_len = ft_words_len(s, c);
 		strs[n] = (char *)malloc(sizeof(char) * (words_len + 1));
 		if (!strs[n])
-			return (1); //FREE ALL
+		{
+			ft_free_all(strs);
+			return (NULL);
+		}
 		ft_strlcpy(strs[n], s, words_len + 1);
 		s += words_len;
 		n++;
 	}
-	return (0);
+	return (strs);
 }
 
 char	**ft_split(char const *s, char c)
 {
 	int		count;
-	int		result;
 	char	**strs;
 
-	if (!s)
-		return (NULL);
-	count = ft_count_words(s, c);
-	strs = (char **)malloc(sizeof(char *) * count + 1);
+	if (!s || (s[0] == 0 && c == 0))
+	{
+		strs = (char **)malloc(sizeof(char *) * 1);
+		if (!strs)
+			return (NULL);
+		strs[0] = NULL;
+		return (strs);
+	}
+	if (c == 0)
+		count = 1;
+	else
+		count = ft_count_words(s, c);
+	strs = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!strs)
 		return (NULL);
-	result = ft_mal_strs(s, strs, c, count);
-	strs[count] = 0;
-	if (result == 1)
+	strs = ft_mal_strs(s, strs, c, count);
+	if (!strs)
 		return (NULL);
+	strs[count] = NULL;
 	return (strs);
 }
-
-int main(void)
-{
-	ft_split("  tripouille  42  ", ' ');
-	return 0;
-}
-

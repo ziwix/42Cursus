@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/30 18:17:29 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/09 16:50:05 by megadiou         ###   ########.fr       */
+/*   Created: 2023/11/08 14:12:17 by megadiou          #+#    #+#             */
+/*   Updated: 2023/11/09 14:44:49 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	size_t	i;
-
-	i = 0;
-	while (i < n)
+	while (lst != NULL)
 	{
-		*((unsigned char *)s + i) = 0;
-		i++;
+		(*f)(lst->content);
+		lst = lst->next;
 	}
-	return ;
 }

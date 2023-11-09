@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/30 18:17:29 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/09 16:50:05 by megadiou         ###   ########.fr       */
+/*   Created: 2023/11/07 15:44:56 by megadiou          #+#    #+#             */
+/*   Updated: 2023/11/09 14:45:20 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+t_list	*ft_lstnew(void *content)
 {
-	size_t	i;
+	t_list	*head;
 
-	i = 0;
-	while (i < n)
-	{
-		*((unsigned char *)s + i) = 0;
-		i++;
-	}
-	return ;
+	head = (t_list *)malloc(sizeof(t_list));
+	if (!head)
+		return (NULL);
+	head->content = content;
+	head->next = NULL;
+	return (head);
 }

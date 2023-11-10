@@ -17,7 +17,6 @@ OBJB=$(SRCB:.c=.o)
 
 $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
-	$(CC) $(OBJS)
 
 %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) $< -c -o $@
@@ -35,4 +34,4 @@ clean:
 bonus: $(OBJB)
 	ar rcs $(NAME) $(OBJB)
 
-.PHONY: all clean fclean bonus re
+.PHONY: all clean fclean re bonus

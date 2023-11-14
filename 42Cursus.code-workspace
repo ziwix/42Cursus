@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			".gitignore": true,
+			".vscode/": true,
+			"*.code-workspace": true,
+			"**/.git": false,
+			"*/.git": true,
+			"*/.vscode/": true,
+			"libft_Testers/": true
+		},
+		"files.associations": {
+			"libft.h": "c"
+		}
+	}
+}

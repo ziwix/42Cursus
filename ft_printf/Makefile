@@ -1,20 +1,19 @@
 CC=clang
+MAKE=make
 CFLAGS=-Wall -Wextra -Werror
 NAME=libftprintf.a
-SRCS=ft_printf.c ft_parsing.c ft_utils.c ft_print_chars.c ft_print_numbers.c
-#SRCB=
-HEADER=ft_printf.h
+SRCS=srcs/ft_printf.c srcs/ft_parsing.c srcs/ft_utils.c \
+		srcs/ft_print_chars.c srcs/ft_print_numbers.c
+HEADER=srcs/ft_printf.h
 OBJS=$(SRCS:.c=.o)
 LIBFT = libft/libft.a
-#OBJB=$(SRCB:.c=.o)
 
-
-$(NAME): $(OBJS)
-	cp $(LIBFT) $(NAME)
-	ar rcs $(NAME) $(OBJS)
+$(NAME): $(LIBFT) $(OBJS)
+	ar rcs $@ $(OBJS)
 
 $(LIBFT):
-	make -C libft all
+	$(MAKE) -C libft all
+	cp $(LIBFT) $(NAME)
 
 %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) $< -c -o $@
@@ -30,7 +29,5 @@ fclean: clean
 clean:
 	rm -rf *.o
 
-#bonus: $(OBJB)
-#	ar rcs $(NAME) $(OBJB)
 
-.PHONY: all clean fclean re #bonus
+.PHONY: all clean fclean re

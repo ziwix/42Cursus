@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_print_chars.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 11:14:09 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/14 16:12:17 by megadiou         ###   ########.fr       */
+/*   Created: 2023/11/13 11:39:49 by megadiou          #+#    #+#             */
+/*   Updated: 2023/11/14 15:42:50 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+void	ft_print_char(va_list args)
 {
-	size_t	i;
+	char	c;
 
-	i = 0;
-	if (size > 0)
-	{
-		while (src[i] && i < (size - 1))
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
-	}
-	return (ft_strlen(src));
+	c = va_arg(args, int);
+	ft_putchar_fd(c, 1);
+}
+
+void	ft_print_string(va_list args)
+{
+	char	*str;
+
+	str = va_arg(args, char *);
+	ft_putstr_fd(str, 1);
+}
+
+void	ft_print_percent()
+{
+	char	c;
+
+	c = '%';
+	ft_putchar_fd(c, 1);
 }

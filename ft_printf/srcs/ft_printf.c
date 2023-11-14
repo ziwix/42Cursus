@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 11:14:09 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/14 16:12:17 by megadiou         ###   ########.fr       */
+/*   Created: 2023/11/10 18:48:43 by megadiou          #+#    #+#             */
+/*   Updated: 2023/11/14 14:54:38 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+void	ft_start_printf(va_list args, const char *format)
 {
-	size_t	i;
+	char	*formats;
+	formats = ft_parse_numb(format);
+	if (!formats)
+		return ;
+	ft_check_args(args, formats);
+}
 
-	i = 0;
-	if (size > 0)
-	{
-		while (src[i] && i < (size - 1))
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
-	}
-	return (ft_strlen(src));
+int	ft_printf(const char *format, ...)
+{
+	va_list	args;
+
+	va_start(args, format);
+	ft_start_printf(args, format);
+	va_end(args);
+	return (0);
 }

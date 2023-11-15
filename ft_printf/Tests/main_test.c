@@ -6,33 +6,35 @@
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 12:31:08 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/14 14:33:52 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/11/15 16:54:56 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include "../libft/libft.h"
+#include <stdint.h>
 
-int main() 
+void	ft_putptr(uintptr_t num, int upLow)
 {
-	long int decNum,quo;
-	int i=1,j,temp;
-	char hexadecNum[100];
+	uintptr_t	tmp;
 
-	printf("Enter any decimal number to convert it to hexadecimal Number: ");
-	scanf("%ld",&decNum);
-	quo = decNum;
-	while (quo != 0)
+	tmp = 0;
+	if (num)
 	{
-		temp = quo % 16;
-		if( temp < 10)
-			temp = temp + 48; 
+		tmp = num % 16;
+		ft_putnbr_base16(num / 16, upLow);
+		if (tmp > 9)
+			ft_putchar_fd(tmp + upLow, 1);
 		else
-			temp = temp + 55;
-		hexadecNum[i++] = temp;
-		quo = quo / 16;
+			ft_putchar_fd(tmp + 48, 1);
 	}
-	printf("hexadecimal value of decimal number entered is %ld: ",decNum);
-	for (j = i - 1 ;j > 0; j--)
-		printf("%c", hexadecNum[j]);
+}
+
+int	main(void)
+{
+	char	*str = "Ssalut c'est ziwix";
+	ft_putstr_fd("0x", 1);
+	ft_putnbr_base16((uintptr_t)str, 87);
+	printf("\n%p", str);
 	return (0);
 }

@@ -6,38 +6,32 @@
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:33:31 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/14 16:25:59 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/11/15 17:06:48 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_check_args(va_list args, char *formats)
+int	ft_check_args(va_list args, char format)
 {
-	size_t	i;
-	size_t	len;
+	int	i;
 
 	i = 0;
-	len = ft_strlen(formats);
-	while (i <= len)
-	{
-		if (formats[i] == 'c')
-			ft_print_char(args);
-		if (formats[i] == 's')
-			ft_print_string(args);
-		if (formats[i] == '%')
-			ft_print_percent();
-		if (formats[i] == 'd' || formats[i] == 'i')
-			ft_print_int_decimal(args);
-		if (formats[i] == 'u')
-			ft_print_unsigned_int(args);
-		if (formats[i] == 'x' || formats[i] == 'X')
-			ft_print_hexa(args, formats[i]);
-		//if (formats[i] == 'p') // void * pointer in hexa
-			
-		i++;
-	}
-	free(formats);
+	if (format == 'c')
+		i += ft_print_char(args);
+	if (format == 's')
+		i += ft_print_string(args);
+	if (format == '%')
+		i += ft_print_percent();
+	if (format == 'd' || format == 'i')
+		i += ft_print_int_decimal(args);
+	if (format == 'u')
+		i += ft_print_unsigned_int(args);
+	if (format == 'x' || format == 'X')
+		i += ft_print_hexa(args, format);
+	if (format == 'p')
+		i += ft_print_ptr(args);
+	return (i);
 }
 
 void	ft_putnbr_unsigned(unsigned int n)
@@ -57,25 +51,34 @@ void	ft_putnbr_unsigned(unsigned int n)
 	}
 }
 
-char	*ft_convert_to_hexa(va_list args)
+void	ft_putnbr_base16(int num, int upLow)
 {
-	long int	num;
-	int			tmp;
-	int			i;
-	char		*hexa_num;
+	int	tmp;
 
-	i = 0;
-	hexa_num = "0123456789abcdef";
-	num = va_arg(args, long int);
-	while (num != 0)
+	tmp = 0;
+	if (num)
 	{
 		tmp = num % 16;
-		if (tmp < 10)
-			tmp += 48;
+		ft_putnbr_base16(num / 16, upLow);
+		if (tmp > 9)
+			ft_putchar_fd(tmp + upLow, 1);
 		else
-			tmp += 55;
-		hexa_num[i++] = tmp;
-		num /= 16;
+			ft_putchar_fd(tmp + 48, 1);
 	}
-	return (hexa_num);
+}
+
+void	ft_putptr(uintptr_t num)
+{
+	uintptr_t	tmp;
+
+	tmp = 0;
+	if (num)
+	{
+		tmp = num % 16;
+		ft_putptr(num / 16);
+		if (tmp > 9)
+			ft_putchar_fd(tmp + 87, 1);
+		else
+			ft_putchar_fd(tmp + 48, 1);
+	}
 }

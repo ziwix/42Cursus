@@ -6,32 +6,35 @@
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:39:49 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/14 15:42:50 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/11/15 17:09:12 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_print_char(va_list args)
+int	ft_print_char(va_list args)
 {
 	char	c;
 
 	c = va_arg(args, int);
 	ft_putchar_fd(c, 1);
+	return (1);
 }
 
-void	ft_print_string(va_list args)
+int	ft_print_string(va_list args)
 {
 	char	*str;
 
 	str = va_arg(args, char *);
 	ft_putstr_fd(str, 1);
+	return (ft_strlen(str));
 }
 
-void	ft_print_percent()
+int	ft_print_percent(void)
 {
 	char	c;
 
 	c = '%';
 	ft_putchar_fd(c, 1);
+	return (1);
 }

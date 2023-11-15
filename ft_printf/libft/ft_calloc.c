@@ -6,7 +6,7 @@
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 11:49:11 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/03 14:10:03 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/11/15 16:59:31 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	size_t			i;
 	unsigned char	*ptr;
 
-	i = 0;
 	if (nmemb > 65535 && size > 65535)
 		return (NULL);
 	if (nmemb * size > 2147483647)

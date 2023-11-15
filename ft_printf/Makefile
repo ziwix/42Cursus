@@ -27,7 +27,7 @@ fclean: clean
 	make -C libft fclean
 
 clean:
-	rm -rf *.o
+	rm -rf *.o */*.o
 
 
 .PHONY: all clean fclean re

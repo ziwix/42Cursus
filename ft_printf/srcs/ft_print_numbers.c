@@ -6,15 +6,17 @@
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:27:05 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/14 15:42:16 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/11/15 17:09:24 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_print_int_decimal(va_list args)
+int	ft_print_int_decimal(va_list args)
 {
-	int	num = va_arg(args, int);
+	int	num;
+
+	num = va_arg(args, int);
 	ft_putnbr_fd(num, 1);
 }
 
@@ -26,20 +28,21 @@ void	ft_print_unsigned_int(va_list args)
 	ft_putnbr_unsigned(u_num);
 }
 
-void	ft_print_hexa(va_list args, char lowOrUp)
+void	ft_print_hexa(va_list args, char format)
 {
-	int		hexa_num;
-	char	*hexa_string = NULL;
+	int	hexa_num;
 
 	hexa_num = va_arg(args, int);
-	if (lowOrUp == 'x')
-	{
-		hexa_string = ft_convert_to_hexa(args);
-		ft_putstr_fd(hexa_string, 1);
-	}
-	if (lowOrUp == 'X')
-	{
-		hexa_string = ft_convert_to_hexa(args);
-		ft_putstr_fd(hexa_string, 1);
-	}
+	if (format == 'x')
+		ft_putnbr_base16(hexa_num, 87);
+	if (format == 'X')
+		ft_putnbr_base16(hexa_num, 55);
+}
+
+void	ft_print_ptr(va_list args)
+{
+	char	*ptr;
+
+	ptr = va_arg(args, char *);
+	ft_putptr((uintptr_t)ptr);
 }

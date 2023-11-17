@@ -6,7 +6,7 @@
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 14:16:02 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/08 14:50:38 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:40:19 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	**ft_split(char const *s, char c)
 
 	if (!s || (s[0] == 0 && c == 0))
 	{
-		strs = (char **)malloc(sizeof(char *) * 1);
+		strs = (char **)malloc(sizeof(char *));
 		if (!strs)
 			return (NULL);
 		strs[0] = NULL;

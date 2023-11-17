@@ -2,8 +2,8 @@ CC=clang
 MAKE=make
 CFLAGS=-Wall -Wextra -Werror
 NAME=libftprintf.a
-SRCS=srcs/ft_printf.c srcs/ft_parsing.c srcs/ft_utils.c \
-		srcs/ft_print_chars.c srcs/ft_print_numbers.c
+SRCS=srcs/ft_printf.c srcs/ft_utils.c srcs/ft_print_chars.c \
+	 srcs/ft_print_numbers.c srcs/ft_hexa.c srcs/ft_length.c
 HEADER=srcs/ft_printf.h
 OBJS=$(SRCS:.c=.o)
 LIBFT = libft/libft.a

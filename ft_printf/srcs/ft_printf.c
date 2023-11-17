@@ -6,7 +6,7 @@
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:48:43 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/15 17:05:22 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:09:51 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,25 @@
 int	ft_start_printf(va_list args, const char *format)
 {
 	int		i;
+	int		count;
 
 	i = 0;
-	while (!format[i])
+	count = 0;
+	while (format[i] != 0)
 	{
 		if (format[i] == '%')
 		{
 			i++;
-			i += ft_check_args(args, format[i]);
+			count += ft_check_args(args, format[i]);
 		}
-		ft_putchar_fd(format[i], 1);
+		else
+		{
+			ft_putchar_fd(format[i], 1);
+			count++;
+		}
 		i++;
 	}
-	return (i);
+	return (count);
 }
 
 int	ft_printf(const char *format, ...)

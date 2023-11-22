@@ -1,5 +1,5 @@
 CC=clang
-GFLAGS=-D BUFFER_SIZE=42
+GFLAGS=-D BUFFER_SIZE=5
 CFLAGS=-Wall -Wextra -Werror $(GFLAGS)
 NAME=get_next_line.a
 SRCS=get_next_line.c get_next_line_utils.c

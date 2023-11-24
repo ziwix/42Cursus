@@ -6,34 +6,31 @@
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 09:54:52 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/22 14:46:24 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:32:29 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_strcpy(char *dst, char const *src)
+static char	*ft_strcat(char *dest, const char *s1, const char *s2)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (src[i])
+	j = 0;
+	while (s1[i])
 	{
-		dst[i] = src[i];
+		dest[i] = s1[i];
 		i++;
 	}
-	dst[i] = '\0';
-	return (i);
-}
-
-static int	ft_lenstr(char const *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	while (s2[j])
+	{
+		dest[i + j] = s2[j];
+		j++;
+	}
+	dest[i + j] = '\0';
+	return (dest);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -46,12 +43,11 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	i = 0;
 	if (!s1 || !s2)
 		return (NULL);
-	len_s1 = ft_lenstr(s1);
-	len_s2 = ft_lenstr(s2);
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
 	dest = (char *)malloc(sizeof(char) * (len_s1 + len_s2) + 1);
 	if (!dest)
 		return (NULL);
-	i = ft_strcpy(dest, s1);
-	ft_strcpy(dest + i, s2);
+	ft_strcat(dest, s1, s2);
 	return (dest);
 }

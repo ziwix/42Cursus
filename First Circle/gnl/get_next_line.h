@@ -6,7 +6,7 @@
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:08:44 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/22 17:41:45 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/11/24 16:35:12 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,18 @@
 /*****************************/
 
 char	*get_next_line(int fd);
-char	*start_get_line(int fd);
-size_t	have_newline(char *str);
-char	*trim_remains(char	*str, size_t len);
+char	*read_file(int fd, char *stock);
+char	*get_line(char *stock);
+int		have_newline(char *stock);
+char	*trim_stock(char *stock, int start);
 
 /*************************************/
 /*		 get_next_line_utils.c		 */
 /*************************************/
 
-size_t	ft_strlen(const char *str);
-char	*ft_substr(char const *s, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_malloc_n_cat(const char *s1, const char *s2, int len);
+size_t	ft_strlen(const char *s);
+void	*ft_calloc(size_t nmemb, size_t size);
 
 #endif

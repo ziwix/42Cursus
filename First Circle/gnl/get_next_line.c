@@ -6,94 +6,123 @@
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:08:47 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/22 18:01:04 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/11/24 16:38:22 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 char	*get_next_line(int fd)
 {
 	char		*line;
-	
-	if (!fd || BUFFER_SIZE <= 0)
+	static char	*stock;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	line = start_get_line(fd);
+	stock = read_file(fd, stock);
+	if (!stock)
+		return (NULL);
+	line = get_line(stock);
+	stock = trim_stock(stock, ft_strlen(line));
 	return (line);
 }
 
-char	*start_get_line(int fd)
+char	*read_file(int fd, char *stock)
 {
-	static char	*stock;
-	char		*buff;
-	char		*line;
-	size_t		stock_len;
+	char	*buff;
+	int		read_size;
 
 	while (1)
 	{
-		buff = malloc(sizeof(char) * BUFFER_SIZE + 1);
+		buff = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
 		if (!buff)
 			return (NULL);
-		read(fd, buff, BUFFER_SIZE);
-		if (!stock)
-			stock = ft_substr(buff, BUFFER_SIZE);
-		else
-			stock = ft_strjoin(stock, buff);
-		stock_len = have_newline(stock);
-		if (stock_len > 0)
-		{
-			line = ft_substr(stock, stock_len);
-			stock = trim_remains(stock + 1, stock_len);
-			return (line);
-		}
+		read_size = read(fd, buff, BUFFER_SIZE);
+		if (read_size < 0)
+			return (NULL);
+		stock = ft_strjoin(stock, buff);
+		free(buff);
+		buff = NULL;
+		if (have_newline(stock) > 0 || read_size < BUFFER_SIZE)
+			return (stock);
 	}
 	return (NULL);
 }
 
-size_t	have_newline(char *str)
+char	*get_line(char *stock)
 {
-	size_t	i;
+	int		i;
+	char	*line;
 
 	i = 0;
-	while (str[i])
+	line = ft_calloc(sizeof(char), have_newline(stock) + 1);
+	if (!line)
+		return (NULL);
+	while (stock[i] != '\n' && stock[i])
 	{
-		if (str[i] == '\n')
-			return (i);
+		line[i] = stock[i];
+		i++;
+	}
+	if (stock[i] == '\n')
+	{
+		line[i] = stock[i];
+		i++;
+	}
+	line[i] = '\0';
+	return (line);
+}
+
+int	have_newline(char *stock)
+{
+	int	i;
+
+	i = 0;
+	while (stock[i])
+	{
+		if (stock[i] == '\n')
+			return (i + 1);
 		i++;
 	}
 	return (0);
 }
 
-char	*trim_remains(char	*str, size_t len)
+char	*trim_stock(char *stock, int start)
 {
 	int		i;
-	char	*dst;
+	char	*dest;
 
 	i = 0;
-	dst = malloc(sizeof(char) * len + 1);
-	if (!dst)
+	while (stock[start + i])
+		i++;
+	dest = ft_calloc(sizeof(char), i + 1);
+	if (!dest)
 		return (NULL);
-	while (str[len + i])
+	i = 0;
+	while (stock[start + i])
 	{
-		dst[i] = str[len + i];
+		dest[i] = stock[start + i];
 		i++;
 	}
-	dst[i] = '\0';
-	free(str);
-	return (dst);
+	dest[i] = '\0';
+	return (dest);
 }
 
-#include <stdio.h>
-
-int main(void)
+int	main(void)
 {
-	int		fd = open("test.txt", O_RDONLY);
-	char	*str = get_next_line(fd);
-	printf("Result 1 : %s\n", str);
-	// str = get_next_line(fd);
-	// printf("Result 2 : %s\n", str);
-	// str = get_next_line(fd);
-	// printf("Result 3 : %s\n", str);
+	int		fd;
+	char	*str;
+
+	fd = open("test.txt", O_RDONLY);
+	str = get_next_line(fd);
+	printf("Result 1 : '%s'\n", str);
+	free(str);
+	str = get_next_line(fd);
+	printf("Result 2 : '%s'\n", str);
+	free(str);
+	str = get_next_line(fd);
+	printf("Result 3 : '%s'\n", str);
+	free(str);
 	close(fd);
 	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:08:47 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/27 16:50:09 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:51:24 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 char    *get_next_line(int fd)
 {
 	char        *line;
-	static char    *stock;
+	static char    *stock[1024];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	stock = read_file(fd, stock);
-	if (!stock)
+	stock[fd] = read_file(fd, stock[fd]);
+	if (!stock[fd])
 		return (NULL);
-	line = get_line(stock);
-	stock = trim_stock(stock );
-	if (stock && stock[0] == '\0')
-		free(stock);
+	line = get_line(stock[fd]);
+	stock[fd] = trim_stock(stock[fd]);
+	if (stock[fd] && stock[fd][0] == '\0')
+		free(stock[fd]);
 	return (line);
 }
 

@@ -6,17 +6,16 @@
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:08:47 by megadiou          #+#    #+#             */
-/*   Updated: 2023/11/27 16:50:09 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:30:20 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
-char    *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	char        *line;
-	static char    *stock;
+	char		*line;
+	static char	*stock;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -24,16 +23,16 @@ char    *get_next_line(int fd)
 	if (!stock)
 		return (NULL);
 	line = get_line(stock);
-	stock = trim_stock(stock );
+	stock = trim_stock(stock);
 	if (stock && stock[0] == '\0')
 		free(stock);
 	return (line);
 }
 
-char    *read_file(int fd, char *stock)
+char	*read_file(int fd, char *stock)
 {
-	char    *buff;
-	int     read_size;
+	char	*buff;
+	int		read_size;
 	int		i;
 
 	buff = malloc(sizeof(char) * BUFFER_SIZE + 1);
@@ -59,15 +58,15 @@ char    *read_file(int fd, char *stock)
 	return (stock);
 }
 
-char    *get_line(char *stock)
+char	*get_line(char *stock)
 {
-	int        i;
-	char    *line;
+	int		i;
+	char	*line;
 
 	i = 0;
 	while (stock[i] != '\n' && stock[i])
 		i++;
-	if(stock[i] == '\n')
+	if (stock[i] == '\n')
 		i++;
 	line = malloc(sizeof(char) * i + 1);
 	if (!line)
@@ -87,11 +86,11 @@ char    *get_line(char *stock)
 	return (line);
 }
 
-char    *trim_stock(char *stock)
+char	*trim_stock(char *stock)
 {
-	int     i;
+	int		i;
 	int		j;
-	char    *dest;
+	char	*dest;
 
 	i = 0;
 	if (!stock)

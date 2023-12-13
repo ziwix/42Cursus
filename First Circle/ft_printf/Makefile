@@ -1,5 +1,4 @@
-CC=cc
-MAKE=make
+CC=clang
 CFLAGS=-Wall -Wextra -Werror
 NAME=libftprintf.a
 SRCS=src/ft_printf.c src/ft_utils.c src/ft_print_chars.c \
@@ -12,7 +11,7 @@ $(NAME): $(LIBFT) $(OBJS)
 	ar rcs $@ $(OBJS)
 
 $(LIBFT):
-	$(MAKE) -C libft all
+	make -C libft all
 	cp $(LIBFT) $(NAME)
 
 %.o: %.c $(HEADER)

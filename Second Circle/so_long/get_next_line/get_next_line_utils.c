@@ -1,48 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/04 09:54:52 by megadiou          #+#    #+#             */
-/*   Updated: 2023/12/19 15:43:01 by megadiou         ###   ########.fr       */
+/*   Created: 2023/11/27 16:28:01 by megadiou          #+#    #+#             */
+/*   Updated: 2023/12/13 17:28:45 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "get_next_line.h"
 
-static char	*ft_strcat(char *s1, char *s2, char *dest)
+static char	*ft_strcat(char *dest, char *src, char *f_str)
 {
-	size_t	i;
-	size_t	lens1;
+	size_t	pos;
+	size_t	lendest;
 
-	i = 0;
-	if (!s1)
-		lens1 = 0;
+	pos = 0;
+	if (!dest)
+		lendest = 0;
 	else
 	{
-		lens1 = ft_strlen(s1);
-		while (s1[i])
+		lendest = ft_strlen(dest);
+		while (dest[pos])
 		{
-			dest[i] = s1[i];
-			i++;
+			f_str[pos] = dest[pos];
+			pos++;
 		}
 	}
-	i = 0;
-	while (s2[i])
+	pos = 0;
+	while (src[pos])
 	{
-		dest[lens1 + i] = s2[i];
-		i++;
+		f_str[lendest + pos] = src[pos];
+		pos++;
 	}
-	dest[lens1 + i] = '\0';
-	return (dest);
+	f_str[lendest + pos] = '\0';
+	return (f_str);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	new_s_len;
-	char	*dst;
+	char	*str;
 
 	if (!s2)
 		return (NULL);
@@ -50,10 +50,20 @@ char	*ft_strjoin(char *s1, char *s2)
 		new_s_len = ft_strlen(s2) + 1;
 	else
 		new_s_len = ft_strlen(s1) + ft_strlen(s2) + 1;
-	dst = (char *)malloc(sizeof(char) * new_s_len);
-	if (!dst)
+	str = (char *)malloc(sizeof(*str) * new_s_len);
+	if (!str)
 		return (NULL);
-	dst = ft_strcat((char *)s1, (char *)s2, dst);
+	str = ft_strcat((char *)s1, (char *)s2, str);
 	free(s1);
-	return (dst);
+	return (str);
+}
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
 }

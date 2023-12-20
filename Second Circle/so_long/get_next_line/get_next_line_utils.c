@@ -6,7 +6,7 @@
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:28:01 by megadiou          #+#    #+#             */
-/*   Updated: 2023/12/13 17:28:45 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/12/20 12:06:30 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,4 @@ char	*ft_strjoin(char *s1, char *s2)
 	str = ft_strcat((char *)s1, (char *)s2, str);
 	free(s1);
 	return (str);
-}
-
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
 }

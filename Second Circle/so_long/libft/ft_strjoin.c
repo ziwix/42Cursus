@@ -6,7 +6,7 @@
 /*   By: megadiou <megadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 09:54:52 by megadiou          #+#    #+#             */
-/*   Updated: 2023/12/19 15:43:01 by megadiou         ###   ########.fr       */
+/*   Updated: 2023/12/20 12:07:31 by megadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*ft_strcat(char *s1, char *s2, char *dest)
 	return (dest);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	new_s_len;
 	char	*dst;
@@ -54,6 +54,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!dst)
 		return (NULL);
 	dst = ft_strcat((char *)s1, (char *)s2, dst);
-	free(s1);
+	free((char *)s1);
 	return (dst);
 }
